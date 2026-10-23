@@ -1,0 +1,11 @@
+﻿import { Interior } from "../components/page-chrome";
+
+export const metadata = { title: "Privacy and terms | Krishi Global Solutions", description: "Read how KGS handles website enquiries and learn about the general information provided on this website." };
+
+export default function LegalPage() {
+  return <Interior eyebrow="IMPORTANT INFORMATION" title={<>Your information.<br /><em>Clear terms.</em></>} intro="Here’s what happens when you use this website and send KGS a message.">
+    <section className="interior-section legal-copy" id="privacy"><h2>How we use your information</h2><p>When you send a message, we use the details you provide to understand your question and contact you. The website sends your message to KGS by email. It does not save enquiries in a website database.</p><p>Please do not send Aadhaar, PAN, bank account details, statements, salary slips or identity documents through these forms. If KGS needs more information, the team will explain how to share it safely.</p><p>Before this website goes live, KGS should confirm its contact details and explain how long messages are kept and how to ask about or remove your information.</p></section>
+    <section className="interior-section legal-copy" id="terms"><h2>Using this website</h2><p>The information on this website is general. It is here to help you learn about KGS and ask questions. It is not a loan offer or a promise that a financial product will be available to you.</p><p>Banks and other providers set their own rates, fees, repayment periods and eligibility rules. Read and understand the provider’s documents before you agree to a product.</p><p>Sending an enquiry does not mean that a loan has been approved or that money will be provided.</p><p>These website terms are a draft and should be reviewed by KGS before publication.</p></section>
+    <section className="interior-section legal-copy" id="disclaimer"><h2>About financial products</h2><p>KGS helps people and businesses learn about financial products offered by banks and other providers. The provider makes the final decision about approval and sets the product terms.</p><p>Nothing on this website promises loan approval, a particular return or a specific financial result. Always check the details with the provider before making a decision.</p></section>
+  </Interior>;
+}
