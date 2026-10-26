@@ -50,6 +50,11 @@ export async function appendEnquiryToSheet(
     throw new Error("Could not connect to the Google Sheets web app.");
   }
   if (!response.ok) {
+    if (response.status === 401 || response.status === 403) {
+      throw new Error(
+        `Google Apps Script denied access (HTTP ${response.status}). In the web app deployment, set "Execute as" to yourself and "Who has access" to anyone, then deploy a new version.`,
+      );
+    }
     throw new Error(`Google Sheets web app returned HTTP ${response.status}.`);
   }
 
@@ -60,6 +65,17 @@ export async function appendEnquiryToSheet(
     throw new Error("Google Sheets web app returned an invalid response.");
   }
   if (!result || typeof result !== "object" || !("ok" in result) || result.ok !== true) {
-    throw new Error("Google Sheets web app did not confirm the enquiry was saved.");
+    const remoteError =
+      result &&
+      typeof result === "object" &&
+      "error" in result &&
+      typeof result.error === "string"
+        ? result.error.replace(/[\r\n\t]/g, " ").slice(0, 200)
+        : "";
+    throw new Error(
+      remoteError
+        ? `Google Sheets web app rejected the enquiry: ${remoteError}`
+        : "Google Sheets web app did not confirm the enquiry was saved.",
+    );
   }
 }

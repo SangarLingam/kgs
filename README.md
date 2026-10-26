@@ -23,7 +23,7 @@ The contact and finance forms append successful submissions to the `Contact Enqu
 
 1. Open [script.google.com](https://script.google.com/) while signed in to the Google account that can edit the spreadsheet. No Google Cloud Console project or service-account key is needed.
 2. Create a project, replace its starter code with [`scripts/google-sheets-web-app.gs`](./scripts/google-sheets-web-app.gs), and save. In **Project Settings → Script Properties**, add `KGS_SHEETS_WEBHOOK_SECRET`; use the same secret as the website's `.env.local`. Never put the secret in the script source.
-3. In Apps Script, choose **Deploy → New deployment → Web app**, set **Execute as** to yourself, choose the available access option that allows the website's server to call the web app, then deploy and authorize access to the spreadsheet. Copy the deployed URL ending in `/exec`.
+3. In Apps Script, choose **Deploy → New deployment → Web app**, set **Execute as** to yourself and **Who has access** to **Anyone**, then deploy and authorize access to the spreadsheet. The website's server calls the URL without signing in, so access restricted to your account will fail with HTTP 401/403. The script checks a shared webhook secret before it can write. Copy the deployed URL ending in `/exec`.
 4. Create `.env.local` from `.env.example` and set the deployment URL and the same random secret used in the script:
 
    ```env
@@ -33,7 +33,7 @@ The contact and finance forms append successful submissions to the `Contact Enqu
    ```
 
    Generate a secret with `node -e "console.log(require('node:crypto').randomBytes(32).toString('hex'))"`. Add that value to Apps Script **Project Settings → Script Properties** with the property name `KGS_SHEETS_WEBHOOK_SECRET`. Never expose or commit the secret.
-5. Restart the website. The script creates the `Contact Enquiries` and `Finance Enquiries` tabs with headers if missing.
+5. Restart the website and submit a test enquiry through its form. The script creates the `Contact Enquiries` and `Finance Enquiries` tabs with headers if missing. To update an existing deployment after changing its access or script, choose **Deploy → Manage deployments → Edit → New version → Deploy**, and keep using that deployment's `/exec` URL. Do not click **Run** for `doPost` in the Apps Script editor; the editor does not supply the HTTP event, so the function can only be tested by submitting the website form.
 
 The spreadsheet link identifies the destination only; the Apps Script web app provides the authorization to write to it. Do not set the web app access to anyone unless the shared webhook secret is configured.
 
