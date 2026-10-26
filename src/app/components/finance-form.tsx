@@ -4,16 +4,25 @@ import { FormEvent, useState } from "react";
 
 export function FinanceForm() {
   const [state, setState] = useState<"idle" | "sending" | "sent" | "error">("idle");
+  const [errorMessage, setErrorMessage] = useState("");
   async function submit(event: FormEvent<HTMLFormElement>) {
     event.preventDefault();
     setState("sending");
+    setErrorMessage("");
     const form = event.currentTarget;
     try {
       const response = await fetch("/api/finance-enquiry", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(Object.fromEntries(new FormData(form).entries())) });
-      if (!response.ok) throw new Error("Unable to send");
+      if (!response.ok) {
+        const result: unknown = await response.json().catch(() => null);
+        const message = result && typeof result === "object" && "error" in result && typeof result.error === "string" ? result.error : "Unable to send finance enquiry.";
+        throw new Error(message);
+      }
       form.reset();
       setState("sent");
-    } catch { setState("error"); }
+    } catch (error) {
+      setErrorMessage(error instanceof Error ? error.message : "Unable to send finance enquiry.");
+      setState("error");
+    }
   }
   return <form className="finance-form" onSubmit={submit}>
     <div className="form-section-title"><span>01</span> ABOUT YOU</div>
@@ -31,6 +40,6 @@ export function FinanceForm() {
     <label className="finance-consent"><input type="checkbox" name="consent" value="yes" required /> I confirm these details are correct and agree that KGS may contact me about this request. Sending this form does not guarantee a loan or money.</label>
     <label className="honeypot" aria-hidden="true">Leave this field empty<input name="companyWebsite" tabIndex={-1} autoComplete="off" /></label>
     <button className="button" type="submit" disabled={state === "sending"}>{state === "sending" ? "Sending…" : "Send finance request"}<span>→</span></button>
-    <small role={state === "error" ? "alert" : "status"} aria-live={state === "error" ? "assertive" : "polite"}>{state === "sent" ? "Thank you. Your message was sent to KGS." : state === "error" ? "We couldn’t send your request. Please try again, or contact KGS directly." : "Do not enter Aadhaar, PAN, bank account details or other identity information here. KGS will explain a safe way to share documents if they are needed."}</small>
+    <p className={`form-feedback${state === "sent" ? " success" : ""}`} role={state === "error" ? "alert" : "status"} aria-live={state === "error" ? "assertive" : "polite"}>{state === "sent" ? "Your finance enquiry has been submitted successfully. KGS will contact you using the details provided." : state === "error" ? errorMessage || "We couldn’t send your request. Please try again, or contact KGS directly." : "Do not enter Aadhaar, PAN, bank account details or other identity information here. KGS will explain a safe way to share documents if they are needed."}</p>
   </form>;
 }

@@ -46,7 +46,7 @@ export function Footer() {
     <a className="brand footer-brand" href="/" aria-label="KGS home"><BrandLockup /></a>
     <p>Financial solutions.<br />Structured for growth.</p>
     <div className="footer-links"><a href="/about">About KGS</a><a href="/solutions">How we can help</a><a href="/emi-calculator">EMI calculator</a><a href="/apply">Apply for finance</a><a href="/contact">Contact</a></div>
-    <div className="footer-office"><strong>Head Office</strong><span>Perundurai, Erode<br />Tamil Nadu, India</span></div>
+    <div className="footer-office"><strong>Our Offices</strong><span>Head Office<br />Perundurai, Erode<br />Tamil Nadu, India<br /><a href="tel:+917339328577">+91 73393 28577</a></span><span>Coimbatore Office<br />G.N. Mills, Coimbatore - 641029<br />Tamil Nadu, India<br /><a href="tel:+917339328577">+91 73393 28577</a></span><a href="mailto:krishigobalsolution@gmail.com">krishigobalsolution@gmail.com</a></div>
     <div className="legal">© 2026 Krishi Global Solutions Pvt. Ltd.<br /><span>Finance depends on the provider’s terms and your eligibility. An enquiry does not guarantee approval or payment.</span><br /><a href="/legal#privacy">Privacy</a> · <a href="/legal#terms">Terms</a> · <a href="/legal#disclaimer">Disclaimer</a></div>
   </footer>;
 }
