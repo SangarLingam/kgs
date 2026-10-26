@@ -649,4 +649,10 @@ h1,h2,h3,h4,h5,h6{font-family:"Manrope","DM Sans","Segoe UI",sans-serif;letter-s
 .button.ghost{background:transparent!important;border-color:var(--cyan)!important;color:var(--cyan)!important}
 .footer{background:#f3f6f1!important;border-color:var(--line)!important;color:var(--muted)!important}
 .footer>p,.footer-office strong,.legal,.footer-links a,.footer-office span,.footer a,.footer a:hover{color:var(--paper)!important}
+.footer-office>span>strong{display:block;margin-bottom:3px;color:#425144!important;font-size:12px;letter-spacing:normal;text-transform:none}
+.finance-form .finance-consent input[type="checkbox"]{appearance:auto!important;width:19px;min-height:19px;flex:0 0 19px;margin:2px 0 0;padding:0;accent-color:#087f5b;background:transparent!important;border:0!important;border-radius:3px;box-shadow:none!important;cursor:pointer}
+.finance-form .finance-consent input[type="checkbox"]:focus-visible{outline:2px solid #007fa8;outline-offset:3px}
+.emi-control .emi-period-unit{min-height:36px;padding:6px 28px 6px 10px;border:1px solid #cbd5ce;border-radius:5px;background:#fff;color:#18211d;font:inherit;cursor:pointer}
+.emi-control .emi-period-unit:focus-visible{outline:2px solid #007fa8;outline-offset:2px}
+.emi-control .emi-period-value{color:#617d1d;font-size:17px}
 .hero:before,.hero-contact-card:before,.launch-visual:after,.hero-art:before,.hero-art:after,.launch-orb{display:none!important}

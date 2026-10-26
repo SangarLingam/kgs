@@ -19,6 +19,13 @@ const SHEET_HEADERS = {
 
 function doPost(event) {
   try {
+    if (!event || !event.postData || typeof event.postData.contents !== "string") {
+      return jsonResponse({
+        ok: false,
+        error: "Missing HTTP POST data. Test by submitting the website form; do not run doPost manually.",
+      });
+    }
+
     const request = JSON.parse(event.postData.contents);
     const webhookSecret = PropertiesService.getScriptProperties().getProperty(WEBHOOK_SECRET_PROPERTY);
     if (
